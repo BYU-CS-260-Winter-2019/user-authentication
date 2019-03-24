@@ -234,25 +234,6 @@ router.get('/', auth.verifyToken, async (req, res) => {
 });
 ```
 
-## Deleting tickets only if authorized
-
-Now that we have setup registration and login, we can modify our tickets code
-to only let logged in users delete tickets. A the top of `/server/tickets.js`,
-add the following:
-
-```
-const auth = require("./auth.js");
-```
-
-This loads the authentication library. Then, later in the file, modify the
-DELETE endpoint:
-
-```
-router.delete('/:id', auth.verifyToken, async (req, res) => {
-```
-
-This ensures that only users with a valid token can delete tickets.
-
 ## Login from front end
 
 We have already setup the login form on our front end, so we just need to fill in the `login` method in `public/script.js`:
@@ -319,6 +300,35 @@ And we need to be sure to call `getUser` from within the `created` hook:
   },
 ```
 
+## Testing
+
+Open the Developer Tools and use the Network tab. Watch your requests as you use the application to login. You can see the cookie being set on the request to the `/api/users/login` endpoint:
+
+![login cookie](/screenshots/login-cookie.png)
+
+You can likewise see this cookie being sent in subsequent requests:
+
+![cookie sent](/screenshots/cookie-sent.png)
+
+## Deleting tickets only if authorized
+
+Now that we have setup registration and login, we can modify our tickets code
+to only let logged in users delete tickets. A the top of `/server/tickets.js`,
+add the following:
+
+```
+const auth = require("./auth.js");
+```
+
+This loads the authentication library. Then, later in the file, modify the
+DELETE endpoint:
+
+```
+router.delete('/:id', auth.verifyToken, async (req, res) => {
+```
+
+This ensures that only users with a valid token can delete tickets.
+
 ## Deleting Tickets
 
 We need to modify the `deleteTicket` method in `/public/script.js` so that if an error occurs we toggle the login form.
@@ -335,14 +345,6 @@ We need to modify the `deleteTicket` method in `/public/script.js` so that if an
 ```
 
 ## Testing
-
-Open the Developer Tools and use the Network tab. Watch your requests as you use the application to login. You can see the cookie being set on the request to the `/api/users/login` endpoint:
-
-![login cookie](/screenshots/login-cookie.png)
-
-You can likewise see this cookie being sent in subsequent requests:
-
-![cookie sent](/screenshots/cookie-sent.png)
 
 You should only be able to delete tickets if you are logged in. If you are not logged in, the error will cause the login dialog to display.
 
