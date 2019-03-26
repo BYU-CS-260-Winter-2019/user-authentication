@@ -32,7 +32,7 @@ var app = new Vue({
     },
     async deleteTicket(ticket) {
       try {
-        let response = axios.delete("/api/tickets/" + ticket._id);
+        let response = await axios.delete("/api/tickets/" + ticket._id);
         this.getTickets();
       } catch (error) {
         console.log(error);
