@@ -116,7 +116,7 @@ router.post('/login', async (req, res) => {
       });
 
     // check password
-    if (!existingUser.comparePassword(req.body.password))
+    if (!await existingUser.comparePassword(req.body.password))
       return res.status(403).send({
         message: "username or password is wrong"
       });
