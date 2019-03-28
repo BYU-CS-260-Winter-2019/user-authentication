@@ -78,7 +78,7 @@ We also need a function to compare the password a user gives us with the hashed 
 userSchema.methods.comparePassword = async function(password) {
   try {
     const isMatch = await bcrypt.compare(password, this.password);
-    return true;
+    return isMatch;
   } catch (error) {
     return false;
   }
