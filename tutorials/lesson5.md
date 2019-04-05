@@ -25,7 +25,7 @@ I have written a library for JWT that you can find in `server/auth.js`. This has
 
 ## Cookies
 
-Cookies are used in HTTP to send data from a web browser to a web server. The web server first tells the web server to "set" a cookie. Then, in every subsequent request, the browser will include this data and send it to the web server.
+Cookies are used in HTTP to send data from a web browser to a web server. The web server first tells the web browser to "set" a cookie. Then, in every subsequent request, the browser will include this data and send it to the web server.
 
 Here is an example of how server sending a header in an HTTP request to set a cookie:
 
