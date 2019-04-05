@@ -27,19 +27,19 @@ I have written a library for JWT that you can find in `server/auth.js`. This has
 
 Cookies are used in HTTP to send data from a web browser to a web server. The web server first tells the web browser to "set" a cookie. Then, in every subsequent request, the browser will include this data and send it to the web server.
 
-Here is an example of how server sending a header in an HTTP request to set a cookie:
+Here is an example of how server sending a header in an HTTP response to set a cookie:
 
 ```
 Set-Cookie: qwerty=219ffwef9w0f; Domain=somecompany.com; Path=/; Expires=Wed, 30 Aug 2019 00:00:00 GMT
 ```
 
-Here is what the web browser will send back every time it visits this site (as long as the cookie is not expired):
+Here is what the web browser will send back every time it visits this site (as long as the cookie is not expired) in a request:
 
 ```
 Cookie: qwerty=219ffwef9w0f; Domain=somecompany.com; Path=/; Expires=Wed, 30 Aug 2019 00:00:00 GMT
 ```
 
-In our case, we put the JWT in the cookie. This way, the browser will always send us the cookie, and we can use this JWT to prove that it has logged in.
+In our case, we put the JWT in the cookie. This way, the browser will always send us (the server) the cookie, and we can use this JWT to prove that it has logged in.
 
 To use cookies, we need to setup the cookie parsing middleware in `server/server.js`:
 
