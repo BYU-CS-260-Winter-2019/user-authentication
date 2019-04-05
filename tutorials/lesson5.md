@@ -25,21 +25,27 @@ I have written a library for JWT that you can find in `server/auth.js`. This has
 
 ## Cookies
 
-Cookies are used in HTTP to send data from a web browser to a web server. The web server first tells the web browser to "set" a cookie. Then, in every subsequent request, the browser will include this data and send it to the web server.
+Cookies are used in HTTP to send small amounts of data from a web browser to a web server. For example, a cookie can contain an
+identifier that is unique to that web browser, so the server can keep track of a shopping cart, a user account, or other state.
 
-Here is an example of how server sending a header in an HTTP response to set a cookie:
+Setting a cookie is done by request of the web server. First, the web server tells the web browser to "set" a cookie. This request
+includes an expiration time. Then, in every subsequent request it sends to the web server, the browser will include this data in a cookie
+as long as it has not expired. The server can then use this data to find the state it associates with that browser.
+
+Here is an example of a server sending a header in an HTTP request, asking the web browser to set a cookie:
 
 ```
 Set-Cookie: qwerty=219ffwef9w0f; Domain=somecompany.com; Path=/; Expires=Wed, 30 Aug 2019 00:00:00 GMT
 ```
 
-Here is what the web browser will send back every time it visits this site (as long as the cookie is not expired) in a request:
+Here is what the web browser will send back every in every request it sends subsequently to the site, as long as the cookie is not expired:
 
 ```
 Cookie: qwerty=219ffwef9w0f; Domain=somecompany.com; Path=/; Expires=Wed, 30 Aug 2019 00:00:00 GMT
 ```
 
-In our case, we put the JWT in the cookie. This way, the browser will always send us (the server) the cookie, and we can use this JWT to prove that it has logged in.
+In our case, we have the server put the JWT in a cookie. This way, the browser will always send the server the cookie, and it can use this
+JWT to prove that the user has logged in.
 
 To use cookies, we need to setup the cookie parsing middleware in `server/server.js`:
 
